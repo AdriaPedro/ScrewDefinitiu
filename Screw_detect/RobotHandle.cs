@@ -12,7 +12,7 @@ namespace Screw_detect
 {
     public class RobotHandler
     {
-
+        //hola
         //#region Fields
 
         //private static RobotHandler instance;
@@ -43,7 +43,7 @@ namespace Screw_detect
         //        return instance;
         //    }
         //}
-
+        
         //public Queue<double[]> Candidates { get; set; }
         //public int NumCadidates;
 
