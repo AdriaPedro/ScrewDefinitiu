@@ -120,12 +120,12 @@
 <l>    Width := PositionScrew.Width[Index1]</l>
 <l>    Height := PositionScrew.Height[Index1]</l>
 <l>    PoesRotazioCargol (PoseCompose, PosePesa, Width, Height, PosicioFinal) </l>
+<l>    ResultX[Index1] := PosicioFinal.X</l>
+<l>    ResultY[Index1] := PosicioFinal.Y</l>
+<l>    ResultH[Index1] := PosicioFinal.Height</l>
+<l>    ResultW[Index1] := PosicioFinal.Width</l>
 <l>endfor</l>
 <l>* close_framegrabber (AcqHandle)</l>
-<l>ResultX := PosicioFinal.X</l>
-<l>ResultY := PosicioFinal.Y</l>
-<l>ResultH := PosicioFinal.Height</l>
-<l>ResultW := PosicioFinal.Width</l>
 </body>
 <docu id="vo_find_screw_main">
 <parameters>

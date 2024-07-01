@@ -16,7 +16,8 @@ namespace Screw_detect
         private static readonly Object s_lock = new Object();
         private static HProcedures instance;
 
-        public HTuple resultX = new HTuple(); //TODO: propiedad de resultado 
+        //creacion de las variables truple
+        public HTuple resultX = new HTuple(); 
         public HTuple resultY = new HTuple();
         public HTuple resultW = new HTuple();
         public HTuple resultH = new HTuple();
@@ -50,8 +51,8 @@ namespace Screw_detect
             try
             {
                 hDevEngine = new HDevEngine();
-                hDevEngine.SetProcedurePath("C:\\Users\\VOServer2\\Desktop\\Practicas\\Screw_detect\\bin\\x64\\Debug\\lib");
-                HDevProcedure processingProcedure = new HDevProcedure("vo_find_screw_main");  //TODO: Nombre procedimiento
+                hDevEngine.SetProcedurePath("C:\\Users\\VOServer2\\Desktop\\Practicas\\Screw_detect\\bin\\x64\\Debug\\lib");//carpeta donde se encuentra
+                HDevProcedure processingProcedure = new HDevProcedure("vo_find_screw_main");//Nombre del procedimiento
                 processingProcedureCall = new HDevProcedureCall(processingProcedure);
                 
                 return true;
@@ -78,15 +79,13 @@ namespace Screw_detect
                 HImage hImage = new HImage();
 
 
-                hImage.ReadImage("C:\\Users\\VOServer2\\Desktop\\las practicas\\fotos cargols\\foto6.png");  //TODO: Ruta de la imagen
+                hImage.ReadImage("C:\\Users\\VOServer2\\Desktop\\las practicas\\fotos cargols\\foto6.png");//ruta de la imagen
 
-                //TODO: Param Entrada
                 //Set the procedure inputs
                 processingProcedureCall.SetInputIconicParamObject("Image", hImage); //testImage
                 //processingProcedureCall.SetInputCtrlParamTuple("DICTPATH", ); //v1.0.5 added the dictionary
 
 
-                //TODO: Ejecucion Procedimiento
                 //Executes procedure
                 if (isDebuggingHalcon)
                 {
@@ -97,10 +96,10 @@ namespace Screw_detect
                 else
                     processingProcedureCall.Execute();
 
-                //TODO: param salida
                 //Get procedure outputs
                 //ocrResultImage = processingProcedureCall.GetOutputIconicParamImage("OCRResultImage");
-                resultX = processingProcedureCall.GetOutputCtrlParamTuple("ResultX");//TODO: en vez de darme un ok me de un "[]" para solucionarlo,, es lo del windowhandle del halcon boralo
+                //guardar las variables en sus respectivos truples
+                resultX = processingProcedureCall.GetOutputCtrlParamTuple("ResultX");
                 resultY = processingProcedureCall.GetOutputCtrlParamTuple("ResultY");
                 resultH = processingProcedureCall.GetOutputCtrlParamTuple("ResultH");
                 resultW = processingProcedureCall.GetOutputCtrlParamTuple("ResultW");
@@ -111,7 +110,7 @@ namespace Screw_detect
             }
 
         }
+
     }
 
-    
 }

@@ -12,7 +12,6 @@ namespace Screw_detect
 {
     public class RobotHandler
     {
-        //hola
         //#region Fields
 
         //private static RobotHandler instance;
