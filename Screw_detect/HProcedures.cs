@@ -79,7 +79,7 @@ namespace Screw_detect
                 HImage hImage = new HImage();
 
 
-                hImage.ReadImage("C:\\Users\\VOServer2\\Desktop\\las practicas\\fotos cargols\\foto6.png");//ruta de la imagen
+                hImage.ReadImage("C:\\Users\\VOServer2\\Desktop\\Practicas\\Screw_detect\\bin\\x64\\Debug\\lib\\fotos cargols\\foto6");//ruta de la imagen
 
                 //Set the procedure inputs
                 processingProcedureCall.SetInputIconicParamObject("Image", hImage); //testImage

@@ -28,7 +28,7 @@ namespace Screw_detect
 
             procedures.Find_Screw();
 
-            Console.WriteLine("X: " + procedures.resultX.ToString() + "\nY: " + procedures.resultY.ToString() + "\nHight: " + procedures.resultH.ToString() + "\nWidth: " + procedures.resultW.ToString());
+            Console.WriteLine("X: " + procedures.resultX.ToString() + "\n" + "\nY: " + procedures.resultY.ToString() + "\n" + "\nHight: " + procedures.resultH.ToString() + "\n" + "\nWidth: " + procedures.resultW.ToString());
 
             Thread.Sleep(10000);
 
