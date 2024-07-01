@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.2" halcon_version="24.05.0.0">
+<procedure name="Mode">
+<interface>
+<ic>
+<par name="amplada" base_type="ctrl" dimension="0"/>
+<par name="NBins" base_type="ctrl" dimension="0"/>
+</ic>
+<oc>
+<par name="AMPLADA" base_type="ctrl" dimension="0"/>
+</oc>
+</interface>
+<body>
+<c>*Here we take the sequence of numbers and determine the length of the sequence.</c>
+<l>tuple_length(amplada, Length)</l>
+<c></c>
+<c>*Sorts the elements of a tuple and returns the indices of the sorted tuple.</c>
+<l>tuple_sort_index(amplada, Indices)</l>
+<c></c>
+<c>*Find the highest number in the set of numbers</c>
+<l>tuple_max(amplada, Max)</l>
+<c></c>
+<c>*Find the lowest number in the set of numbers</c>
+<l>tuple_min (amplada,Min)</l>
+<c></c>
+<c>*We calculate the separation between the smallest and the largest number, according to the separations that we want</c>
+<l>tuple_histo_range (amplada, Min, Max, NBins, Histo, BinSize)</l>
+<c></c>
+<c>*In this code sequence, we take the data and sort and separate it by how many numbers fall in an interval</c>
+<l>Sorted := sort(amplada)</l>
+<l>Sequence := [0:NBins - 1]</l>
+<l>Distribution := subset(Histo,Sequence) + ' values in [' + (Sequence * BinSize + Min)$'3' + ',' + ((Sequence + 1) * BinSize + Min)$'3' + ']'</l>
+<c></c>
+<c>*From this new distribution, we look for the largest number of numbers that are in the same interval</c>
+<l>tuple_max (Histo, Max1)</l>
+<l>tuple_find (Histo, Max1, Indices1)</l>
+<l>tuple_max(Indices1,IndiceMax)</l>
+<c></c>
+<l>Valor := Distribution[IndiceMax]</l>
+<l>AMPLADA := (IndiceMax +1) * BinSize + Min</l>
+<l>return ()</l>
+</body>
+<docu id="Mode">
+<parameters>
+<parameter id="AMPLADA"/>
+<parameter id="NBins"/>
+<parameter id="amplada"/>
+</parameters>
+</docu>
+</procedure>
+</hdevelop>

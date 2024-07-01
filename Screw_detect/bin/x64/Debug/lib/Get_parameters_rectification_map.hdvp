@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.2" halcon_version="24.05.0.0">
+<procedure name="Get_parameters_rectification_map">
+<interface>
+<io>
+<par name="Image" base_type="iconic" dimension="0"/>
+</io>
+<ic>
+<par name="CamParam" base_type="ctrl" dimension="0"/>
+<par name="Pose" base_type="ctrl" dimension="0"/>
+<par name="WidthMappedImage" base_type="ctrl" dimension="0"/>
+<par name="HeightMappedImage" base_type="ctrl" dimension="0"/>
+</ic>
+<oc>
+<par name="ScaleForEntireImage" base_type="ctrl" dimension="0"/>
+<par name="PoseForEntireImage" base_type="ctrl" dimension="0"/>
+</oc>
+</interface>
+<body>
+<c>* Transform the image border into the WCS (scale = 1)</c>
+<l>full_domain (Image, ImageFull)</l>
+<l>get_domain (ImageFull, Domain)</l>
+<l>gen_contour_region_xld (Domain, ImageBorder, 'border')</l>
+<l>contour_to_world_plane_xld (ImageBorder, ImageBorderWCS, CamParam, Pose, 1)</l>
+<l>smallest_rectangle1_xld (ImageBorderWCS, MinY, MinX, MaxY, MaxX)</l>
+<c>* Determine the scale of the mapping</c>
+<l>ExtentX := MaxX - MinX</l>
+<l>ExtentY := MaxY - MinY</l>
+<l>ScaleX := ExtentX / WidthMappedImage</l>
+<l>ScaleY := ExtentY / HeightMappedImage</l>
+<l>ScaleForEntireImage := max([ScaleX,ScaleY])</l>
+<c>* Shift the pose by the minimum X and Y coordinates</c>
+<l>set_origin_pose (Pose, MinX, MinY, 0, PoseForEntireImage)</l>
+<l>return ()</l>
+</body>
+<docu id="Get_parameters_rectification_map">
+<parameters>
+<parameter id="CamParam"/>
+<parameter id="HeightMappedImage"/>
+<parameter id="Image"/>
+<parameter id="Pose"/>
+<parameter id="PoseForEntireImage"/>
+<parameter id="ScaleForEntireImage"/>
+<parameter id="WidthMappedImage"/>
+</parameters>
+</docu>
+</procedure>
+</hdevelop>

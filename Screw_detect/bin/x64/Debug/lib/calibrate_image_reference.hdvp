@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.2" halcon_version="24.05.0.0">
+<procedure name="calibrate_image_reference">
+<interface>
+<ic>
+<par name="ParamsDict" base_type="ctrl" dimension="0"/>
+</ic>
+<oc>
+<par name="ResultsDict" base_type="ctrl" dimension="0"/>
+</oc>
+</interface>
+<body>
+<l>IncomingParams := 'TrainingImage'</l>
+<l>IncomingParams[1] := 'CameraParams'</l>
+<l>IncomingParams[2] := 'CameraPose'</l>
+<l>IncomingParams[3] := 'CaltabPath'</l>
+<c></c>
+<l>get_image_size (ParamsDict.TrainingImage, Width, Height)</l>
+<c></c>
+<l>create_calib_data ('calibration_object', 1, 1, CalibDataID)</l>
+<l>set_calib_data_cam_param (CalibDataID, 0, [], ParamsDict.CameraParams)</l>
+<l>set_calib_data_calib_object (CalibDataID, 0, ParamsDict.CaltabPath)</l>
+<c></c>
+<l>find_calib_object (ParamsDict.TrainingImage, CalibDataID, 0, 0, 0, [], [])</l>
+<l>get_calib_data_observ_contours (Caltab, CalibDataID, 'caltab', 0, 0, 0)</l>
+<c></c>
+<l>get_calib_data_observ_pose(CalibDataID,0, 0, 0, ObjInCameraPose)</l>
+<l>get_calib_data_observ_points (CalibDataID, 0, 0, 0, RCoord, CCoord, Index, PoseCalib)</l>
+<c></c>
+<l>Get_parameters_rectification_map (ParamsDict.TrainingImage, ParamsDict.CameraParams, PoseCalib, \
+                       Width, Height, ScaleForEntireImage, PoseForEntireImage)</l>
+<c></c>
+<l>gen_image_to_world_plane_map (Map, ParamsDict.CameraParams, PoseForEntireImage, Width, Height, \
+                              Width, Height, ScaleForEntireImage, 'bilinear')</l>
+<c></c>
+<l>map_image (ParamsDict.TrainingImage, Map, ImageMapped)</l>
+<c></c>
+<l>create_calib_data ('calibration_object', 1, 1, CalibDataID_new)</l>
+<l>set_calib_data_cam_param (CalibDataID_new, 0, [], ParamsDict.CameraParams)</l>
+<l>set_calib_data_calib_object (CalibDataID_new, 0, ParamsDict.CaltabPath)</l>
+<c></c>
+<l>find_calib_object (ImageMapped, CalibDataID_new, 0, 0, 0, [], [])</l>
+<l>get_calib_data_observ_contours (Caltab, CalibDataID_new, 'caltab', 0, 0, 0)</l>
+<l>get_calib_data_observ_points (CalibDataID_new, 0, 0, 0, RCoor, CCoor, Index, PoseCalib_new)</l>
+<c></c>
+<c></c>
+<c>* Measure distance between two points, this can help to know the quality of the calibration.</c>
+<l>gen_region_line (RegionLines, RCoor[0], CCoor[0], RCoor[1], CCoor[1])</l>
+<l>Xdist := ((RCoor[0] - RCoor[1])*ScaleForEntireImage)*1000</l>
+<l>YDist := abs(((CCoor[0] - CCoor[1])*ScaleForEntireImage)*1000)</l>
+<c></c>
+<c></c>
+<l>ResultsDict := ParamsDict</l>
+<l>ResultsDict.RefRow := RCoor[0]</l>
+<l>ResultsDict.RefCol := CCoor[0]</l>
+<l>ResultsDict.Map := Map</l>
+<l>ResultsDict.Scale := ScaleForEntireImage</l>
+<l>ResultsDict.Pose := PoseCalib</l>
+<l>return ()</l>
+</body>
+<docu id="calibrate_image_reference">
+<parameters>
+<parameter id="ParamsDict"/>
+<parameter id="ResultsDict"/>
+</parameters>
+</docu>
+</procedure>
+</hdevelop>

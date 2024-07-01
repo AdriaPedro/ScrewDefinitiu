@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.2" halcon_version="24.05.0.0">
+<procedure name="PoesRotazioCargol">
+<interface>
+<ic>
+<par name="PoseCompose" base_type="ctrl" dimension="0"/>
+<par name="PosePesa" base_type="ctrl" dimension="0"/>
+<par name="Width" base_type="ctrl" dimension="0"/>
+<par name="Height" base_type="ctrl" dimension="0"/>
+</ic>
+<oc>
+<par name="PosicioFinal" base_type="ctrl" dimension="0"/>
+</oc>
+</interface>
+<body>
+<l>if(0 &lt;= PoseCompose[5] and PoseCompose[5] &lt;= 90)</l>
+<l>    RotCorrected := PoseCompose[5]</l>
+<l>endif</l>
+<c></c>
+<l>if(90 &lt; PoseCompose[5] and PoseCompose[5] &lt; 180)</l>
+<l>    RotCorrected := PoseCompose [5] +180 -360</l>
+<l>endif</l>
+<c></c>
+<l>if ( 180 &lt;= PoseCompose[5] and PoseCompose[5] &lt;= 270 )</l>
+<l>    RotCorrected := PoseCompose[5] - 180</l>
+<c>    </c>
+<l>endif</l>
+<c></c>
+<l>if ( 270 &lt; PoseCompose[5] and PoseCompose[5]&lt; 360)</l>
+<l>    RotCorrected := PoseCompose[5] - 360</l>
+<l>endif</l>
+<c>**********************************************************</c>
+<c></c>
+<l>FinalRot := -(RotCorrected + 47.6)</l>
+<c></c>
+<l>create_dict(PosicioFinal)</l>
+<l>PosicioFinal.X := PosePesa[0] * 1000</l>
+<l>PosicioFinal.Y := PosePesa[1] * 1000</l>
+<l>PosicioFinal.RotZ := FinalRot</l>
+<l>PosicioFinal.Width := Width</l>
+<l>PosicioFinal.Height := Height</l>
+<l>return ()</l>
+</body>
+<docu id="PoesRotazioCargol">
+<parameters>
+<parameter id="Height"/>
+<parameter id="PoseCompose"/>
+<parameter id="PosePesa"/>
+<parameter id="PosicioFinal"/>
+<parameter id="Width"/>
+</parameters>
+</docu>
+</procedure>
+</hdevelop>

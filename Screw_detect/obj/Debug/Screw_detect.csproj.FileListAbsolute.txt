@@ -1,0 +1,12 @@
+C:\Users\VOServer2\Desktop\Practicas\Screw_detect\obj\Debug\Screw_detect.csproj.AssemblyReference.cache
+C:\Users\VOServer2\Desktop\Practicas\Screw_detect\obj\Debug\Screw_detect.csproj.CoreCompileInputs.cache
+C:\Users\VOServer2\Desktop\Practicas\Screw_detect\bin\Debug\Screw_detect.exe.config
+C:\Users\VOServer2\Desktop\Practicas\Screw_detect\bin\Debug\Screw_detect.exe
+C:\Users\VOServer2\Desktop\Practicas\Screw_detect\bin\Debug\Screw_detect.pdb
+C:\Users\VOServer2\Desktop\Practicas\Screw_detect\bin\Debug\halcondotnet.dll
+C:\Users\VOServer2\Desktop\Practicas\Screw_detect\bin\Debug\hdevenginedotnet.dll
+C:\Users\VOServer2\Desktop\Practicas\Screw_detect\bin\Debug\halcondotnet.xml
+C:\Users\VOServer2\Desktop\Practicas\Screw_detect\bin\Debug\hdevenginedotnet.xml
+C:\Users\VOServer2\Desktop\Practicas\Screw_detect\obj\Debug\Screw_de.104E90A8.Up2Date
+C:\Users\VOServer2\Desktop\Practicas\Screw_detect\obj\Debug\Screw_detect.exe
+C:\Users\VOServer2\Desktop\Practicas\Screw_detect\obj\Debug\Screw_detect.pdb

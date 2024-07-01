@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.2" halcon_version="24.05.0.0">
+<procedure name="vo_find_screw_main">
+<interface>
+<io>
+<par name="Image" base_type="iconic" dimension="0"/>
+</io>
+<oc>
+<par name="ResultX" base_type="ctrl" dimension="0"/>
+<par name="ResultY" base_type="ctrl" dimension="0"/>
+<par name="ResultH" base_type="ctrl" dimension="0"/>
+<par name="ResultW" base_type="ctrl" dimension="0"/>
+</oc>
+</interface>
+<body>
+<c>*lee la imagen, la pose de la camara i los parametros de la camara</c>
+<l>* read_image(Image,'./fotos Cargols/foto6')</l>
+<c></c>
+<c>* open the framefrabber and take a foto</c>
+<l>* open_framegrabber ('USB3Vision', 0, 0, 0, 0, 0, 0, 'progressive', -1, 'default', -1, 'false', 'default', '2C1700092866_SVSVISTEKGmbH_exo252CU3', 0, -1, AcqHandle)</l>
+<l>* set_framegrabber_param (AcqHandle, '[Consumer]gain_auto', 'Off')</l>
+<l>* set_framegrabber_param (AcqHandle,'ExposureTime', 1500)</l>
+<c></c>
+<l>* grab_image (Image1, AcqHandle)</l>
+<c></c>
+<l>access_channel (Image, Image1, 3)</l>
+<c></c>
+<c>*read the camara Pose and the camara parameters</c>
+<l>read_pose('C:/Users/VOServer2/Desktop/Practicas/Screw_detect/bin/x64/Debug/lib/calibraciones/pose camara.dat',PoseCamara)</l>
+<l>read_cam_par('C:/Users/VOServer2/Desktop/Practicas/Screw_detect/bin/x64/Debug/lib/calibraciones/parametros camara.cal',CalibracionCamara)</l>
+<c></c>
+<c>*Create a dictionari for the parameters of the camar</c>
+<l>create_dict(CamParameters)</l>
+<l>CamParameters.Pose := PoseCamara</l>
+<l>CamParameters.Calibration := CalibracionCamara</l>
+<c></c>
+<c>*read the image for training</c>
+<l>read_image(TrainingImage,'C:/Users/VOServer2/Desktop/Practicas/Screw_detect/bin/x64/Debug/lib/fotos calibracions/foto0.png')</l>
+<c></c>
+<c>*get the Width and the Height of the training image</c>
+<l>get_image_size (TrainingImage, Width, Height)</l>
+<c></c>
+<c>*create a dictionary to save all the parameters for the next procedure</c>
+<l>create_dict (ParamsDict)</l>
+<l>ParamsDict.TrainingImage := TrainingImage</l>
+<l>ParamsDict.CameraParams := CalibracionCamara</l>
+<l>ParamsDict.CameraPose := PoseCamara</l>
+<l>ParamsDict.CaltabPath := 'C:/Users/VOServer2/Desktop/Practicas/Screw_detect/bin/x64/Debug/lib/caltab116mm.descr'</l>
+<c></c>
+<c>*Procedure to find the rectification map</c>
+<l>calibrate_image_reference (ParamsDict, ResultsDict)</l>
+<c></c>
+<l>CamParameters.Scale := ResultsDict.Scale</l>
+<l>RefRow := ResultsDict.RefRow</l>
+<l>RefCol := ResultsDict.RefCol</l>
+<l>RefRotX :=ResultsDict.Pose[3]</l>
+<l>RefRotY := ResultsDict.Pose[4]</l>
+<l>RefRotZ := ResultsDict.Pose[5]</l>
+<c></c>
+<c>*rectificate the image taken and the training image</c>
+<l>map_image(Image1,ResultsDict.Map,ImageMapped)</l>
+<l>map_image(TrainingImage,ResultsDict.Map,TrainingImage)</l>
+<c></c>
+<c>*open a window to previu de images</c>
+<l>dev_open_window (0, 0, Width/3, Height/3, 'black', WindowHandle)</l>
+<c></c>
+<c>* BackLight_Region(ImageMapped)</c>
+<c></c>
+<c>*Read the region from the backlight done with previously</c>
+<l>read_region(ROI_BackLight,'C:/Users/VOServer2/Desktop/Practicas/Screw_detect/bin/x64/Debug/lib/FlexiRegion_16mm.hobj')</l>
+<c>*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</c>
+<c>                           *screws detection*</c>
+<c>*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</c>
+<c>                     </c>
+<c>*Reduce the domain from the image</c>
+<l>reduce_domain(ImageMapped, ROI_BackLight, ImagenBusqueda)</l>
+<c></c>
+<c>*Threshold to find the screws</c>
+<l>* binary_threshold(ImagenBusqueda, RegionThreshold, 'max_separability', 'dark', UsedThreshold)</l>
+<l>threshold(ImagenBusqueda, RegionThreshold, 0,180)</l>
+<c>*Erosion of the imperfections to get only the screws</c>
+<l>opening_circle(RegionThreshold, RegionThresholdLimpia, 2)</l>
+<c></c>
+<c>*Pic up the screws in different regions</c>
+<l>connection(RegionThresholdLimpia, RegionsCargolsResta)</l>
+<c></c>
+<c>*To make sure that the only thing that we pick is the screws, we make a filter buy area</c>
+<l>select_shape(RegionsCargolsResta, RegionsCargols, 'area', 'and', 400, 15000)</l>
+<c></c>
+<c>*To make the measurements are correct, we restore the erosion on the screws</c>
+<l>* dilation_circle(RegionsCargols, RegionCargols, 7)</l>
+<c></c>
+<c></c>
+<c></c>
+<c></c>
+<c></c>
+<c></c>
+<c>*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</c>
+<c>                           *Measurement of the screws*</c>
+<c>*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</c>
+<c>*How many screws are</c>
+<l>count_obj(RegionsCargols, objetos)</l>
+<c></c>
+<c>*Put in the window the mapped image</c>
+<l>dev_display (ImageMapped)</l>
+<c>    </c>
+<c>    *** Width and Height</c>
+<l>    Measurements (RegionsCargols, CamParameters, objetos, PositionScrew)</l>
+<c></c>
+<c>*Create a pose from the calibration plate</c>
+<l>create_pose(RefRow,RefCol,0,0,0,RefRotZ,'Rp+T', 'gba', 'point', PoseRobot)</l>
+<l>pose_invert(PoseRobot, PoseInvert)</l>
+<c>    </c>
+<c> * Find part pose</c>
+<l>for Index1 := 0 to objetos-1 by 1</l>
+<l>    YDisp := (PositionScrew.Row[Index1] - RefRow)*CamParameters.Scale</l>
+<l>    XDisp := (PositionScrew.Column[Index1] - RefCol)*CamParameters.Scale</l>
+<l>    create_pose(XDisp,YDisp,0,0,0,PositionScrew.RotZ[Index1] + 90,'Rp+T', 'gba', 'point', PosePesa)</l>
+<l>    pose_compose(PosePesa,PoseInvert,PoseCompose)</l>
+<l>    Width := PositionScrew.Width[Index1]</l>
+<l>    Height := PositionScrew.Height[Index1]</l>
+<l>    PoesRotazioCargol (PoseCompose, PosePesa, Width, Height, PosicioFinal) </l>
+<l>endfor</l>
+<l>* close_framegrabber (AcqHandle)</l>
+<l>ResultX := PosicioFinal.X</l>
+<l>ResultY := PosicioFinal.Y</l>
+<l>ResultH := PosicioFinal.Height</l>
+<l>ResultW := PosicioFinal.Width</l>
+</body>
+<docu id="vo_find_screw_main">
+<parameters>
+<parameter id="Image"/>
+<parameter id="ResultH"/>
+<parameter id="ResultW"/>
+<parameter id="ResultX"/>
+<parameter id="ResultY"/>
+</parameters>
+</docu>
+</procedure>
+</hdevelop>
