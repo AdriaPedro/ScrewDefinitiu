@@ -12,41 +12,41 @@ namespace Screw_detect
 {
     public class RobotHandler
     {
-        //#region Fields
+        #region Fields
 
-        //private static RobotHandler instance;
-        //private static readonly object lockObject = new object();
-        //private readonly ModbusHandler modbusHandler = ModbusHandler.Instance;
+        private static RobotHandler instance;
+        private static readonly object lockObject = new object();
+        private readonly ModbusHandler modbusHandler = ModbusHandler.Instance;
 
-        //#endregion
+        #endregion
 
 
-        //#region Properties
+        #region Properties
 
-        ///// <summary>
-        ///// Singleton object instance
-        ///// </summary>
-        //public static RobotHandler Instance
-        //{
-        //    get
-        //    {
-        //        // Double-checked locking for thread safety
-        //        if (instance == null)
-        //        {
-        //            lock (lockObject)
-        //            {
-        //                if (instance == null)
-        //                    instance = new RobotHandler();
-        //            }
-        //        }
-        //        return instance;
-        //    }
-        //}
-        
-        //public Queue<double[]> Candidates { get; set; }
-        //public int NumCadidates;
+        /// <summary>
+        ///Singleton object instance
+        /// </summary>
+        public static RobotHandler Instance
+        {
+            get
+            {
+                // Double-checked locking for thread safety
+                if (instance == null)
+                {
+                    lock (lockObject)
+                    {
+                        if (instance == null)
+                            instance = new RobotHandler();
+                    }
+                }
+                return instance;
+            }
+        }
 
-        //#endregion
+        public Queue<double[]> Candidates { get; set; }
+        public int NumCadidates;
+
+        #endregion
 
 
         //#region Constructor
