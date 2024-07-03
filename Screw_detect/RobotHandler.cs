@@ -1,17 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Net.Sockets;
 using System.Net;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
+using System.Threading;
+using System.Diagnostics;
+using CCyberPick.Models;
+using System.Collections.Generic;
+using System.Linq;
+using VO_PICKER.Models;
 
-namespace Screw_detect
+namespace INITUBE.Models
 {
     public class RobotHandler
     {
+
         #region Fields
 
         private static RobotHandler instance;
@@ -23,15 +26,15 @@ namespace Screw_detect
 
         #region Properties
 
-        ///<summary>
-        ///Singleton object instance
-        ///</summary>
+        /// <summary>
+        /// Singleton object instance
+        /// </summary>
         public static RobotHandler Instance
         {
             get
             {
-                 //Double-checked locking for thread safety
-                    if (instance == null)
+                // Double-checked locking for thread safety
+                if (instance == null)
                 {
                     lock (lockObject)
                     {
@@ -137,14 +140,14 @@ namespace Screw_detect
                 //Specify how many requests a Socket can listen before it gives Server busy response.
                 listener.Listen(1);
 
-                Socket handler = listener.Accept();
+                //Socket handler = listener.Accept();
 
                 receiveDataFromServer(listener);
 
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(e.ToString());
                 _ = ex;
                 return false;
             }
@@ -246,7 +249,7 @@ namespace Screw_detect
                                         SystemStates.Instance.IsRobotIn = true;
                                     else if (sSplitted1[1].Contains("False"))
                                         SystemStates.Instance.IsRobotIn = false;
-                                        //handler.Send(answer);
+                                    //handler.Send(answer);
                                     break;
 
                                 case "REMOVECANDIDATE":
