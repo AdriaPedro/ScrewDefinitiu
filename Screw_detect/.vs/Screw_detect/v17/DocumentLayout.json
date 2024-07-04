@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\VOServer2\\Desktop\\Practicas\\github\\ScrewDefinitiu\\Screw_detect\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{43ADA479-6E35-4423-B003-735EAFE4BAF1}|Screw_detect.csproj|C:\\Users\\VOServer2\\Desktop\\Practicas\\github\\ScrewDefinitiu\\Screw_detect\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{43ADA479-6E35-4423-B003-735EAFE4BAF1}|Screw_detect.csproj|solutionrelative:Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{43ADA479-6E35-4423-B003-735EAFE4BAF1}|Screw_detect.csproj|c:\\users\\voserver2\\desktop\\practicas\\github\\screwdefinitiu\\screw_detect\\hprocedures.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{43ADA479-6E35-4423-B003-735EAFE4BAF1}|Screw_detect.csproj|solutionrelative:hprocedures.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{43ADA479-6E35-4423-B003-735EAFE4BAF1}|Screw_detect.csproj|C:\\Users\\VOServer2\\Desktop\\Practicas\\github\\ScrewDefinitiu\\Screw_detect\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{43ADA479-6E35-4423-B003-735EAFE4BAF1}|Screw_detect.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{43ADA479-6E35-4423-B003-735EAFE4BAF1}|Screw_detect.csproj|C:\\Users\\VOServer2\\Desktop\\Practicas\\github\\ScrewDefinitiu\\Screw_detect\\robothandle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{43ADA479-6E35-4423-B003-735EAFE4BAF1}|Screw_detect.csproj|solutionrelative:robothandle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43ADA479-6E35-4423-B003-735EAFE4BAF1}|Screw_detect.csproj|C:\\Users\\VOServer2\\Desktop\\Practicas\\github\\ScrewDefinitiu\\Screw_detect\\hprocedures.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{43ADA479-6E35-4423-B003-735EAFE4BAF1}|Screw_detect.csproj|solutionrelative:hprocedures.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -32,7 +32,7 @@
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\VOServer2\\Desktop\\Practicas\\github\\ScrewDefinitiu\\Screw_detect\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAARAAAA",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAQwCIAAAAoAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-27T12:30:18.474Z",
               "IsPinned": true,
@@ -52,26 +52,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "HProcedures.cs",
               "DocumentMoniker": "C:\\Users\\VOServer2\\Desktop\\Practicas\\github\\ScrewDefinitiu\\Screw_detect\\HProcedures.cs",
               "RelativeDocumentMoniker": "HProcedures.cs",
               "ToolTip": "C:\\Users\\VOServer2\\Desktop\\Practicas\\github\\ScrewDefinitiu\\Screw_detect\\HProcedures.cs",
               "RelativeToolTip": "HProcedures.cs",
-              "ViewState": "AQIAAEYAAAAAAAAAAAA5wDYAAABHAAAA",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAwwDYAAABHAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-27T12:32:58.778Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "RobotHandle.cs",
               "DocumentMoniker": "C:\\Users\\VOServer2\\Desktop\\Practicas\\github\\ScrewDefinitiu\\Screw_detect\\RobotHandle.cs",
               "RelativeDocumentMoniker": "RobotHandle.cs",
               "ToolTip": "C:\\Users\\VOServer2\\Desktop\\Practicas\\github\\ScrewDefinitiu\\Screw_detect\\RobotHandle.cs",
               "RelativeToolTip": "RobotHandle.cs",
-              "ViewState": "AQIAAOgAAAAAAAAAAAAuwCcBAAABAAAA",
+              "ViewState": "AQIAAHUAAAAAAAAAAAAAAIgAAAAkAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-27T12:31:39.06Z",
               "EditorCaption": ""
