@@ -32,7 +32,7 @@ namespace Screw_detect
                 procedures.resultH.ToString() + "\n" + "\nWidth: " + procedures.resultW.ToString());
             */
             // Init robot server com 
-            robotHandler.InitServerCOM("127.0.0.1", 3200); // 127.0.0.1 = Localhost
+            robotHandler.InitServerCOM("192.168.5.1", 8080); // 127.0.0.1 = Localhost
             Console.WriteLine("TCP Server COM - Started");
 
             
