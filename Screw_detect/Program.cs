@@ -9,12 +9,13 @@ namespace Screw_detect
 {
     class Program
     {
-        static HProcedures procedures = HProcedures.Instance;
+        static readonly HProcedures procedures = HProcedures.Instance;
+        static readonly RobotHandler robotHandler = RobotHandler.Instance;
 
-         static void Main(string[] args)
+        static void Main(string[] args)
         {
             Console.WriteLine("Init procedures");
-
+            /*
             if (procedures.Init())
             {
                 Console.WriteLine("DONE");
@@ -25,12 +26,18 @@ namespace Screw_detect
                 Console.WriteLine("FAIL");
             }
 
-
             procedures.Find_Screw();
 
-            Console.WriteLine("X: " + procedures.resultX.ToString() + "\n" + "\nY: " + procedures.resultY.ToString() + "\n" + "\nHight: " + procedures.resultH.ToString() + "\n" + "\nWidth: " + procedures.resultW.ToString());
+            Console.WriteLine("X: " + procedures.resultX.ToString() + "\n" + "\nY: " + procedures.resultY.ToString() + "\n" + "\nHight: " +
+                procedures.resultH.ToString() + "\n" + "\nWidth: " + procedures.resultW.ToString());
+            */
+            // Init robot server com 
+            robotHandler.InitServerCOM("127.0.0.1", 3200); // 127.0.0.1 = Localhost
+            Console.WriteLine("TCP Server COM - Started");
 
-            Thread.Sleep(10000);
+            
+
+            Console.ReadKey();
 
         }
     }

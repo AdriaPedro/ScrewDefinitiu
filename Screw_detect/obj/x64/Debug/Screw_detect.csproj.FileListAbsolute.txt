@@ -13,8 +13,6 @@ C:\Users\VOServer2\Desktop\Practicas\Screw_detect\obj\x64\Debug\Screw_detect.pdb
 C:\Users\VOServer2\Desktop\Practicas\github\ScrewDefinitiu\Screw_detect\bin\x64\Debug\Screw_detect.exe.config
 C:\Users\VOServer2\Desktop\Practicas\github\ScrewDefinitiu\Screw_detect\bin\x64\Debug\Screw_detect.exe
 C:\Users\VOServer2\Desktop\Practicas\github\ScrewDefinitiu\Screw_detect\bin\x64\Debug\Screw_detect.pdb
-C:\Users\VOServer2\Desktop\Practicas\github\ScrewDefinitiu\Screw_detect\bin\x64\Debug\halcondotnet.xml
-C:\Users\VOServer2\Desktop\Practicas\github\ScrewDefinitiu\Screw_detect\bin\x64\Debug\hdevenginedotnet.xml
 C:\Users\VOServer2\Desktop\Practicas\github\ScrewDefinitiu\Screw_detect\obj\x64\Debug\Screw_detect.csproj.AssemblyReference.cache
 C:\Users\VOServer2\Desktop\Practicas\github\ScrewDefinitiu\Screw_detect\obj\x64\Debug\Screw_detect.csproj.CoreCompileInputs.cache
 C:\Users\VOServer2\Desktop\Practicas\github\ScrewDefinitiu\Screw_detect\obj\x64\Debug\Screw_de.104E90A8.Up2Date
