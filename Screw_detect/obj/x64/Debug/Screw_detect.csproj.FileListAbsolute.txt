@@ -18,3 +18,15 @@ C:\Users\VOServer2\Desktop\Practicas\github\ScrewDefinitiu\Screw_detect\obj\x64\
 C:\Users\VOServer2\Desktop\Practicas\github\ScrewDefinitiu\Screw_detect\obj\x64\Debug\Screw_de.104E90A8.Up2Date
 C:\Users\VOServer2\Desktop\Practicas\github\ScrewDefinitiu\Screw_detect\obj\x64\Debug\Screw_detect.exe
 C:\Users\VOServer2\Desktop\Practicas\github\ScrewDefinitiu\Screw_detect\obj\x64\Debug\Screw_detect.pdb
+C:\Users\HOT\Desktop\las practicas\gitHub\ScrewDefinitiu\Screw_detect\bin\x64\Debug\Screw_detect.exe.config
+C:\Users\HOT\Desktop\las practicas\gitHub\ScrewDefinitiu\Screw_detect\bin\x64\Debug\Screw_detect.exe
+C:\Users\HOT\Desktop\las practicas\gitHub\ScrewDefinitiu\Screw_detect\bin\x64\Debug\Screw_detect.pdb
+C:\Users\HOT\Desktop\las practicas\gitHub\ScrewDefinitiu\Screw_detect\bin\x64\Debug\halcondotnet.dll
+C:\Users\HOT\Desktop\las practicas\gitHub\ScrewDefinitiu\Screw_detect\bin\x64\Debug\hdevenginedotnet.dll
+C:\Users\HOT\Desktop\las practicas\gitHub\ScrewDefinitiu\Screw_detect\bin\x64\Debug\halcondotnet.xml
+C:\Users\HOT\Desktop\las practicas\gitHub\ScrewDefinitiu\Screw_detect\bin\x64\Debug\hdevenginedotnet.xml
+C:\Users\HOT\Desktop\las practicas\gitHub\ScrewDefinitiu\Screw_detect\obj\x64\Debug\Screw_detect.csproj.AssemblyReference.cache
+C:\Users\HOT\Desktop\las practicas\gitHub\ScrewDefinitiu\Screw_detect\obj\x64\Debug\Screw_detect.csproj.CoreCompileInputs.cache
+C:\Users\HOT\Desktop\las practicas\gitHub\ScrewDefinitiu\Screw_detect\obj\x64\Debug\Screw_de.104E90A8.Up2Date
+C:\Users\HOT\Desktop\las practicas\gitHub\ScrewDefinitiu\Screw_detect\obj\x64\Debug\Screw_detect.exe
+C:\Users\HOT\Desktop\las practicas\gitHub\ScrewDefinitiu\Screw_detect\obj\x64\Debug\Screw_detect.pdb

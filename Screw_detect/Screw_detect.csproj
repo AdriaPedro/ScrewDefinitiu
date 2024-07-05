@@ -41,11 +41,13 @@
     <OutputPath>bin\x64\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="halcondotnet">
-      <HintPath>..\..\..\AppData\Local\Programs\MVTec\HALCON-24.05-Progress\bin\dotnet35\halcondotnet.dll</HintPath>
+    <Reference Include="halcondotnet, Version=24.5.0.0, Culture=neutral, PublicKeyToken=4973bed59ddbf2b8, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\AppData\Roaming\MVTec\HALCON-24.05-Progress\bin\dotnet35\halcondotnet.dll</HintPath>
     </Reference>
-    <Reference Include="hdevenginedotnet">
-      <HintPath>..\..\..\AppData\Local\Programs\MVTec\HALCON-24.05-Progress\bin\dotnet35\hdevenginedotnet.dll</HintPath>
+    <Reference Include="hdevenginedotnet, Version=24.5.0.0, Culture=neutral, PublicKeyToken=4973bed59ddbf2b8, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\AppData\Roaming\MVTec\HALCON-24.05-Progress\bin\dotnet35\hdevenginedotnet.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

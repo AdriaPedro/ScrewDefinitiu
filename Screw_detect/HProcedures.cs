@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 using HalconDotNet;
 using System.IO;
+using System.Diagnostics;
 
 namespace Screw_detect
 {
@@ -21,6 +22,7 @@ namespace Screw_detect
         public HTuple resultY = new HTuple();
         public HTuple resultW = new HTuple();
         public HTuple resultH = new HTuple();
+        public HTuple resultRZ = new HTuple();
 
         private HDevProcedureCall processingProcedureCall;
         private HDevProcedure processingProcedure;
@@ -51,7 +53,7 @@ namespace Screw_detect
             try
             {
                 hDevEngine = new HDevEngine();
-                hDevEngine.SetProcedurePath("C:\\Users\\VOServer2\\Desktop\\Practicas\\github\\ScrewDefinitiu\\Screw_detect\\bin\\x64\\Debug\\lib");//carpeta donde se encuentra
+                hDevEngine.SetProcedurePath("C:\\Users\\HOT\\Desktop\\las practicas\\gitHub\\ScrewDefinitiu\\Screw_detect\\bin\\x64\\Debug\\lib\\");//carpeta donde se encuentra
                 HDevProcedure processingProcedure = new HDevProcedure("vo_find_screw_main");//Nombre del procedimiento
                 processingProcedureCall = new HDevProcedureCall(processingProcedure);
                 
@@ -76,15 +78,15 @@ namespace Screw_detect
             try
             {
 
-                HImage hImage = new HImage();
+                /*HImage hImage = new HImage();
 
 
-                hImage.ReadImage("C:\\Users\\VOServer2\\Desktop\\Practicas\\github\\ScrewDefinitiu\\Screw_detect\\bin\\x64\\Debug\\lib\\fotos cargols\\foto6");//ruta de la imagen
+                hImage.ReadImage("C:\\Users\\HOT\\Desktop\\las practicas\\gitHub\\ScrewDefinitiu\\Screw_detect\\bin\\x64\\Debug\\lib\\fotos cargols\\foto6");//ruta de la imagen
 
                 //Set the procedure inputs
                 processingProcedureCall.SetInputIconicParamObject("Image", hImage); //testImage
                 //processingProcedureCall.SetInputCtrlParamTuple("DICTPATH", ); //v1.0.5 added the dictionary
-
+                */
 
                 //Executes procedure
                 if (isDebuggingHalcon)
@@ -103,6 +105,7 @@ namespace Screw_detect
                 resultY = processingProcedureCall.GetOutputCtrlParamTuple("ResultY");
                 resultH = processingProcedureCall.GetOutputCtrlParamTuple("ResultH");
                 resultW = processingProcedureCall.GetOutputCtrlParamTuple("ResultW");
+                resultRZ = processingProcedureCall.GetOutputCtrlParamTuple("ResultRZ");
             }
             catch (Exception ex)
             {
