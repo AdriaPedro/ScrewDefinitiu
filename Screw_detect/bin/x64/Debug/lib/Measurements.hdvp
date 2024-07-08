@@ -58,37 +58,28 @@
 <l>    select_obj(QuadradoPartido,QuadradoPartido1,1)</l>
 <l>    region_features(QuadradoPartido1,'width',AmpladaQuadrado_Amplada)</l>
 <l>    region_features(QuadradoPartido1,'height',AlsadaQuadrado_Amplada)</l>
-<l>    partition_rectangle(QuadradoPartido1, Partitioned, AmpladaQuadrado_Amplada, AlsadaQuadrado_Amplada/NParts)</l>
-<c>    </c>
-<l>    hom_mat2d_identity (HomMat2DIdentity)</l>
-<l>    hom_mat2d_translate (HomMat2DIdentity, ColumnaCentreAmplada, FilaCentreAmplada, HomMat2DTranslate)</l>
-<c>    </c>
-<l>    for Index1:= 0 to NParts-1 by 1</l>
-<c>        </c>
-<l>            vector_angle_to_rigid (FilaCentreAmplada, ColumnaCentreAmplada, rad(90) , \
-            FilaCentreAmplada, ColumnaCentreAmplada, OrientacioCargolAmplada, ScrewRotationCorrection)</l>
-<l>            affine_trans_region (Partitioned, RotatedPartitions, ScrewRotationCorrection, \
-            'nearest_neighbor')</l>
-<c>            </c>
-<c>           *Of the two remaining squares of the partition, we keep the top one.</c>
-<l>           select_obj(RotatedPartitions, QuadradoPequenyo, [Index1]+1)</l>
-<c>        </c>
-<c>           *We look for the part that remains when we join the selected square and in the part of the snail that we are looking at</c>
-<l>           intersection(QuadradoPequenyo,CargolTreball,PotaCargolAmplada)</l>
+<l>    partition_rectangle(QuadradoPartido1, Partitioned, AmpladaQuadrado_Amplada, AlsadaQuadrado_Amplada/20)</l>
+<l>    for Index1:= 0 to 19 by 1</l>
+<c>           *de els dos quadrats resultans de la particio ens quedem el de adalt</c>
+<l>           select_obj(Partitioned, QuadradoPequenyo, [Index1]+1)</l>
+<l>           dilation_rectangle1(QuadradoPequenyo, RegionDilation, 50, 50)</l>
 <c>           </c>
-<c>           *From this resulting part, we look for the smallest rectangle that can fit</c>
-<l>           smallest_rectangle2(PotaCargolAmplada, FilaPetitaAmplada1, ColumnaPetitaAmplada1,Phi, FilaPetitaAmplada2, ColumnaPetitaAmplada2)</l>
-<l>           gen_rectangle2(RectangleMesuraAmplada, FilaPetitaAmplada1, ColumnaPetitaAmplada1,Phi, FilaPetitaAmplada2, ColumnaPetitaAmplada2) </l>
-<l>           region_features(RectangleMesuraAmplada, 'row1', FilaPetitaAmplada1)</l>
-<l>           region_features(RectangleMesuraAmplada, 'row2', FilaPetitaAmplada2)</l>
-<l>           region_features(RectangleMesuraAmplada, 'column2', ColumnaPetitaAmplada2)</l>
-<c>           </c>
-<c>           *Calculates the distance between the points and stores it in a variable</c>
+<c>           *busquem la part que que queda quan juntem el quadrat selecionat i la par del cargol que estem mirant </c>
+<l>           intersection(RegionDilation,CargolRotat,PotaCargolAmplada)</l>
+<c>        </c>
+<c>           *d'aquesta part resultant li busquem el rectangle mes petit que pot entrar</c>
+<l>           smallest_rectangle1(PotaCargolAmplada, FilaPetitaAmplada1, ColumnaPetitaAmplada1, FilaPetitaAmplada2, ColumnaPetitaAmplada2)</l>
+<l>           gen_rectangle1(RectangleMesuraAmplada, FilaPetitaAmplada1, ColumnaPetitaAmplada1, FilaPetitaAmplada2, ColumnaPetitaAmplada2) </l>
+<c>           *troba els ponts de la punta esquerra superior i la esquerra inferior</c>
+<l>           image_points_to_world_plane(CalibracionCamara, PoseCamara, FilaPetitaAmplada1, ColumnaPetitaAmplada1, 'mm', X_amplada, Y_amplada)</l>
+<l>           image_points_to_world_plane(CalibracionCamara, PoseCamara, FilaPetitaAmplada1, ColumnaPetitaAmplada2, 'mm', X1_amplada, Y1_amplada)</l>
+<c>        </c>
+<c>           *calcula la distancia entre els punts i la guarda en una variable</c>
 <l>           x1 := FilaPetitaAmplada1*RefScale</l>
-<l>           x2 := FilaPetitaAmplada2*RefScale</l>
-<l>           y1 := ColumnaPetitaAmplada2*RefScale</l>
+<l>           y1 := ColumnaPetitaAmplada1*RefScale</l>
+<l>           y2 := ColumnaPetitaAmplada2*RefScale</l>
 <c>        </c>
-<l>           distance_pp (x1,y1,x2,y1, Distance)</l>
+<l>           distance_pp (x1,y1,x1,y2, Distance)</l>
 <l>           Distance := Distance*1000</l>
 <l>           amplada[Index1]:=Distance</l>
 <l>    endfor</l>

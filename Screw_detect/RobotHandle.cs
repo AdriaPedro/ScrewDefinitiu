@@ -137,7 +137,7 @@ namespace Screw_detect
                                     var valueRZ = (double)procedures.resultRZ;
                                     var valueW = (double)procedures.resultW;
                                     var valueH = (double)procedures.resultH;
-                                    string result = ($"{ valueX.ToString("F4")};{valueY.ToString("F4")};{valueRZ.ToString("F4")};{valueW.ToString("F4")};{valueH.ToString("F4")}");
+                                    string result = ($"{valueX:F1};{valueY:F1};{valueRZ:F1};{valueW:F1};{valueH:F1}");
                                     //int value = int.Parse(splitted2[0]);
                                     answer = Encoding.ASCII.GetBytes(result);
 
@@ -154,12 +154,16 @@ namespace Screw_detect
                             data = "";
                         }
                     }
-                    catch (Exception)
+                    catch (HalconDotNet.HTupleAccessException)
+                    {
+                        Console.WriteLine("NO HAY NADA QUI");
+                    }
+                    catch (Exception e)
                     {
                         //handle exception
                         handler = null;
                         handler = listener.Accept();
-
+                        Console.WriteLine(e.Message);
                         data = "";
                     }
 
