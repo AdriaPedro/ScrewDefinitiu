@@ -100,7 +100,6 @@ namespace Screw_detect
                 string data = string.Empty;
                 byte[] bytes = null;
 
-                string[] sSplitted1;
                 Socket handler = listener.Accept();
 
                 while (true)
