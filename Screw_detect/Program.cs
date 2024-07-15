@@ -15,27 +15,22 @@ namespace Screw_detect
         static void Main(string[] args)
         {
             Console.WriteLine("Init procedures");
-            /*
+
             if (procedures.Init())
             {
                 Console.WriteLine("DONE");
-                
+
             }
             else
             {
                 Console.WriteLine("FAIL");
             }
 
-            procedures.Find_Screw();
-
-            Console.WriteLine("X: " + procedures.resultX.ToString() + "\n" + "\nY: " + procedures.resultY.ToString() + "\n" + "\nHight: " +
-                procedures.resultH.ToString() + "\n" + "\nWidth: " + procedures.resultW.ToString());
-            */
             // Init robot server com 
-            robotHandler.InitServerCOM("127.0.0.1", 3200); // 127.0.0.1 = Localhost
+            robotHandler.InitServerCOM("192.168.5.1", 8080); // 127.0.0.1 = Localhost
             Console.WriteLine("TCP Server COM - Started");
 
-            
+            Console.WriteLine("\nX: " + procedures.resultX.ToString() + "\n" + "\nY: " + procedures.resultY.ToString() + "\n" + "\nHight: " + procedures.resultH.ToString() + "\n" + "\nWidth: " + procedures.resultW.ToString());
 
             Console.ReadKey();
 

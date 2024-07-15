@@ -11,6 +11,7 @@ namespace Screw_detect
 {
     public class RobotHandler
     {
+        static readonly HProcedures procedures = HProcedures.Instance;
         #region Fields
 
         private static RobotHandler instance;
@@ -99,7 +100,6 @@ namespace Screw_detect
                 string data = string.Empty;
                 byte[] bytes = null;
 
-                string[] sSplitted1;
                 Socket handler = listener.Accept();
 
                 while (true)
@@ -123,15 +123,21 @@ namespace Screw_detect
                         if (data.Length > 0)
                         {
                             byte[] answer;
-                            sSplitted1 = data.Split('|');
-                            var splitted2 = sSplitted1[1].Split(';');
-                            string command = sSplitted1[0];
+                            /*sSplitted1 = data.Split('|');
+                            var splitted2 = sSplitted1[1].Split(';');*/
+                            string command = data;
 
                             switch (command)
                             {
                                 case "FIND":
-                                    string result = "Find Message has been processed. with value: "+ sSplitted1[1];
-                                    int value = int.Parse(splitted2[0]);
+                                    procedures.Find_Screw();
+                                    var valueX = (double)procedures.resultX;
+                                    var valueY = (double)procedures.resultY;
+                                    var valueRZ = (double)procedures.resultRZ;
+                                    var valueW = (double)procedures.resultW;
+                                    var valueH = (double)procedures.resultH;
+                                    string result = ($"{valueX:F1};{valueY:F1};{valueRZ:F1};{valueW:F1};{valueH:F1}");
+                                    //int value = int.Parse(splitted2[0]);
                                     answer = Encoding.ASCII.GetBytes(result);
 
                                     handler.Send(answer);
@@ -147,12 +153,16 @@ namespace Screw_detect
                             data = "";
                         }
                     }
-                    catch (Exception)
+                    catch (HalconDotNet.HTupleAccessException)
+                    {
+                        Console.WriteLine("NO HAY NADA QUI");
+                    }
+                    catch (Exception e)
                     {
                         //handle exception
                         handler = null;
                         handler = listener.Accept();
-
+                        Console.WriteLine(e.Message);
                         data = "";
                     }
 

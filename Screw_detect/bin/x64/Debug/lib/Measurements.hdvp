@@ -28,31 +28,36 @@
 <c>    *Select one object to work with it</c>
 <l>    select_obj(RegionsCargols, CargolTreball,[Index+1])</l>
 <c>    </c>
+<l>*     smallest_rectangle2 (CargolTreball, Row, Column, Phi, Length1, Length2)</l>
+<l>*     gen_rectangle2 (Rectangle, Row, Column, Phi, Length1, Length2)</l>
+<c>    </c>
 <l>    PoseCamara := CamParameters.Pose</l>
 <l>    CalibracionCamara := CamParameters.Calibration</l>
 <l>    RefScale := CamParameters.Scale</l>
 <c>    </c>
-<c>    *Find the orientation and center of the object we are going to work with.                       </c>
+<c>    *encuentra la orientacion i el centro del objeto con el que vamos a trbajar                       </c>
 <l>    orientation_region (CargolTreball, OrientacioCargolAmplada)</l>
 <l>    area_center (CargolTreball, AreaCargolAmplada, FilaCentreAmplada, ColumnaCentreAmplada)</l>
 <c>    </c>
-<c>    *Sets the object vertically (theoretically).</c>
+<c>    </c>
+<c>    </c>
+<c>    *pone el objeto en vertical(en teorico)</c>
 <l>    vector_angle_to_rigid (FilaCentreAmplada, ColumnaCentreAmplada, OrientacioCargolAmplada, \
     FilaCentreAmplada, ColumnaCentreAmplada, rad(90), CargolRotatAmpladaTeoric)</l>
 <c>    </c>
-<c>    *Places the object vertically (in practice).</c>
+<c>    *pone el objeto en vertical(en practico)</c>
 <l>    affine_trans_region (CargolTreball, CargolRotat, CargolRotatAmpladaTeoric, \
     'nearest_neighbor')</l>
 <c>        </c>
-<c>    *Makes the smallest rectangle that can fit in the part.</c>
+<c>    *hace el rectangulo mas pequenyo que pueda entrar en la pieza</c>
 <l>    smallest_rectangle1(CargolRotat, FilaAmplada1, ColumnaAmplada1, FilaAmplada2, ColumnaAmplada2)</l>
 <l>    gen_rectangle1(RectangleAmplada, FilaAmplada1, ColumnaAmplada1, FilaAmplada2, ColumnaAmplada2)</l>
 <c>        </c>
-<c>    *Find the height and width of the rectangle</c>
+<c>    *encuentra el alto i el ancho del rectangulo</c>
 <l>    region_features(RectangleAmplada,'width',AmpladaRectangle_Amplada)</l>
 <l>    region_features(RectangleAmplada,'height',AlsadaRectangle_Amplada)</l>
 <c>        </c>
-<c>    *Split the rectangle in two by the height</c>
+<c>    *parte el rectangulo en dos porla altura</c>
 <c>    </c>
 <l>    partition_rectangle(RectangleAmplada, QuadradoPartido, AmpladaRectangle_Amplada, AlsadaRectangle_Amplada/2)</l>
 <l>    select_obj(QuadradoPartido,QuadradoPartido1,1)</l>
@@ -62,37 +67,55 @@
 <c>    </c>
 <l>    hom_mat2d_identity (HomMat2DIdentity)</l>
 <l>    hom_mat2d_translate (HomMat2DIdentity, ColumnaCentreAmplada, FilaCentreAmplada, HomMat2DTranslate)</l>
+<l>    hom_mat2d_rotate(HomMat2DTranslate, OrientacioCargolAmplada, ColumnaCentreAmplada, FilaCentreAmplada, HomMat2DRotate)</l>
+<c>    </c>
+<l>    vector_angle_to_rigid(FilaCentreAmplada, ColumnaCentreAmplada, OrientacioCargolAmplada, FilaCentreAmplada, ColumnaCentreAmplada, OrientacioCargolAmplada, HomMat2D)</l>
+<l>    affine_trans_pixel(HomMat2DRotate, ColumnaCentreAmplada, FilaCentreAmplada, RowTrans, ColTrans)</l>
+<c>    </c>
 <c>    </c>
 <l>    for Index1:= 0 to NParts-1 by 1</l>
+<c>        </c>
+<c>        </c>
 <c>        </c>
 <l>            vector_angle_to_rigid (FilaCentreAmplada, ColumnaCentreAmplada, rad(90) , \
             FilaCentreAmplada, ColumnaCentreAmplada, OrientacioCargolAmplada, ScrewRotationCorrection)</l>
 <l>            affine_trans_region (Partitioned, RotatedPartitions, ScrewRotationCorrection, \
             'nearest_neighbor')</l>
 <c>            </c>
-<c>           *Of the two remaining squares of the partition, we keep the top one.</c>
+<c></c>
+<l>            dev_display (CargolTreball)</l>
+<l>            dev_set_draw ('margin')            </l>
+<l>            dev_display(RotatedPartitions)</l>
+<l>            dev_set_draw('fill')</l>
+<c>            </c>
+<c>           *de els dos quadrats resultans de la particio ens quedem el de adalt</c>
 <l>           select_obj(RotatedPartitions, QuadradoPequenyo, [Index1]+1)</l>
-<c>        </c>
-<c>           *We look for the part that remains when we join the selected square and in the part of the snail that we are looking at</c>
+<c>           </c>
+<c>           *busquem la part que que queda quan juntem el quadrat selecionat i la par del cargol que estem mirant </c>
 <l>           intersection(QuadradoPequenyo,CargolTreball,PotaCargolAmplada)</l>
 <c>           </c>
-<c>           *From this resulting part, we look for the smallest rectangle that can fit</c>
+<c>           *d'aquesta part resultant li busquem el rectangle mes petit que pot entrar</c>
 <l>           smallest_rectangle2(PotaCargolAmplada, FilaPetitaAmplada1, ColumnaPetitaAmplada1,Phi, FilaPetitaAmplada2, ColumnaPetitaAmplada2)</l>
 <l>           gen_rectangle2(RectangleMesuraAmplada, FilaPetitaAmplada1, ColumnaPetitaAmplada1,Phi, FilaPetitaAmplada2, ColumnaPetitaAmplada2) </l>
-<l>           region_features(RectangleMesuraAmplada, 'row1', FilaPetitaAmplada1)</l>
+<l>           affine_trans_region (RectangleMesuraAmplada, RectangleMesuraAmplada, CargolRotatAmpladaTeoric, 'nearest_neighbor')</l>
+<l>           region_features(RectangleMesuraAmplada, 'column1', ColumnaPetitaAmplada1)</l>
 <l>           region_features(RectangleMesuraAmplada, 'row2', FilaPetitaAmplada2)</l>
 <l>           region_features(RectangleMesuraAmplada, 'column2', ColumnaPetitaAmplada2)</l>
 <c>           </c>
-<c>           *Calculates the distance between the points and stores it in a variable</c>
-<l>           x1 := FilaPetitaAmplada1*RefScale</l>
-<l>           x2 := FilaPetitaAmplada2*RefScale</l>
-<l>           y1 := ColumnaPetitaAmplada2*RefScale</l>
+<l>           dev_set_color('spring green')</l>
+<l>           dev_display(RectangleMesuraAmplada)</l>
+<l>           dev_set_colored(12)</l>
+<c>           </c>
+<c>           *calcula la distancia entre els punts i la guarda en una variable</c>
+<l>           x1 := FilaPetitaAmplada2*RefScale</l>
+<l>           y1 := ColumnaPetitaAmplada1*RefScale</l>
+<l>           y2 := ColumnaPetitaAmplada2*RefScale</l>
 <c>        </c>
-<l>           distance_pp (x1,y1,x2,y1, Distance)</l>
+<l>           distance_pp (x1,y1,x1,y2, Distance)</l>
 <l>           Distance := Distance*1000</l>
 <l>           amplada[Index1]:=Distance</l>
 <l>    endfor</l>
-<c>    </c>
+<c></c>
 <l>    Mode (amplada, NBins, AMPLADA)</l>
 <l>    AMPLADATOTAL[Index] := AMPLADA</l>
 <c>    </c>
@@ -101,27 +124,28 @@
 <c> *                Length</c>
 <c> ********************************************</c>
 <c>    </c>
-<c>    *Makes the smallest rectangle that can fit in the part.</c>
+<c>    *hace el rectangulo mas pequenyo que pueda entrar en la pieza</c>
 <l>    smallest_rectangle1(CargolRotat, FilaAlsada1, ColumnaAlsada1, FilaAlsada2, ColumnaAlsada2)</l>
 <l>    gen_rectangle1(RectangleAlsada, FilaAlsada1, ColumnaAlsada1, FilaAlsada2, ColumnaAlsada2)</l>
 <c>    </c>
-<c>    *Makes the symmetrical difference between the screw and the rectangle.</c>
+<c>    *hace la diferencia simetrica entre el tornillo i el rectangulo</c>
 <l>    symm_difference(CargolRotat,RectangleAlsada,ContornsCargol)</l>
 <c>        </c>
-<c>    *From the regions we separate them</c>
+<c>    *de las rigions que surten las separem</c>
 <l>    connection(ContornsCargol, PartsContornCargol)</l>
 <c>        </c>
-<c>    *Select the region we are interested in, which in this case is 1.</c>
+<c>    *selecionem la regio que ens importa que en aquet cas es la 1</c>
 <l>    select_obj(PartsContornCargol, ObjecteTreball, 1)</l>
 <c>        </c>
-<c>    *We trim the sides to remove imperfections.</c>
+<c>    *retallem els costats per treure inperfecions</c>
 <l>    opening_circle(ObjecteTreball, ObjecteTreballNetejat, 2)</l>
 <c>        </c>
-<c>    *Makes the smallest rectangle of the cleaned region we have searched for</c>
+<c>    *fa el rectangle mes petit de la regio netejada que em buscat</c>
 <l>    smallest_rectangle1(ObjecteTreballNetejat, FilaPetitaAlsada1, ColumnaPetitaAlsada1, FilaPetitaAlsada2, ColumnaPetitaAlsada2)</l>
 <l>    gen_rectangle1(RectangleMesuraAlsada, FilaPetitaAlsada1, ColumnaPetitaAlsada1, FilaPetitaAlsada2, ColumnaPetitaAlsada2)</l>
 <c>        </c>
-<c>    *Calculates the distance between the points and stores it in a variable</c>
+<c>    *calcula la distancia entre els punts i la guarda en una variable</c>
+<c>    *calcula la distancia entre els punts i la guarda en una variable</c>
 <l>    x1 := FilaPetitaAlsada1*RefScale</l>
 <l>    x2 := FilaPetitaAlsada2*RefScale</l>
 <l>    y2 := ColumnaPetitaAlsada1*RefScale</l>
@@ -138,14 +162,11 @@
 <l>    OrientacioCargol[Index] := deg(OrientacioCargolAmplada)</l>
 <c>    </c>
 <l>endfor</l>
-<c></c>
 <l>PositionScrew.Width := AMPLADATOTAL</l>
 <l>PositionScrew.Height := altura</l>
 <l>PositionScrew.Row := FilaCentre</l>
 <l>PositionScrew.Column := ColumnaCentre</l>
 <l>PositionScrew.RotZ := OrientacioCargol</l>
-<c></c>
-<l>return ()</l>
 </body>
 <docu id="Measurements">
 <parameters>

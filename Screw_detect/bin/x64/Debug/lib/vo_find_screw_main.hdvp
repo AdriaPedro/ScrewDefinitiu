@@ -2,14 +2,12 @@
 <hdevelop file_version="1.2" halcon_version="24.05.0.0">
 <procedure name="vo_find_screw_main">
 <interface>
-<io>
-<par name="Image" base_type="iconic" dimension="0"/>
-</io>
 <oc>
 <par name="ResultX" base_type="ctrl" dimension="0"/>
 <par name="ResultY" base_type="ctrl" dimension="0"/>
 <par name="ResultH" base_type="ctrl" dimension="0"/>
 <par name="ResultW" base_type="ctrl" dimension="0"/>
+<par name="ResultRZ" base_type="ctrl" dimension="0"/>
 </oc>
 </interface>
 <body>
@@ -17,17 +15,17 @@
 <l>* read_image(Image,'./fotos Cargols/foto6')</l>
 <c></c>
 <c>* open the framefrabber and take a foto</c>
-<l>* open_framegrabber ('USB3Vision', 0, 0, 0, 0, 0, 0, 'progressive', -1, 'default', -1, 'false', 'default', '2C1700092866_SVSVISTEKGmbH_exo252CU3', 0, -1, AcqHandle)</l>
-<l>* set_framegrabber_param (AcqHandle, '[Consumer]gain_auto', 'Off')</l>
-<l>* set_framegrabber_param (AcqHandle,'ExposureTime', 1500)</l>
+<l>open_framegrabber ('USB3Vision', 0, 0, 0, 0, 0, 0, 'progressive', -1, 'default', -1, 'false', 'default', '2C1700092866_SVSVISTEKGmbH_exo252CU3', 0, -1, AcqHandle)</l>
+<l>set_framegrabber_param (AcqHandle, '[Consumer]gain_auto', 'Off')</l>
+<l>set_framegrabber_param (AcqHandle,'ExposureTime', 1500)</l>
 <c></c>
-<l>* grab_image (Image1, AcqHandle)</l>
+<l>grab_image (Image, AcqHandle)</l>
 <c></c>
 <l>access_channel (Image, Image1, 3)</l>
 <c></c>
 <c>*read the camara Pose and the camara parameters</c>
-<l>read_pose('C:/Users/VOServer2/Desktop/Practicas/Screw_detect/bin/x64/Debug/lib/calibraciones/pose camara.dat',PoseCamara)</l>
-<l>read_cam_par('C:/Users/VOServer2/Desktop/Practicas/Screw_detect/bin/x64/Debug/lib/calibraciones/parametros camara.cal',CalibracionCamara)</l>
+<l>read_pose('C:/Users/HOT/Desktop/las practicas/gitHub/ScrewDefinitiu/Screw_detect/bin/x64/Debug/lib/calibraciones/pose camara.dat',PoseCamara)</l>
+<l>read_cam_par('C:/Users/HOT/Desktop/las practicas/gitHub/ScrewDefinitiu/Screw_detect/bin/x64/Debug/lib/calibraciones/parametros camara.cal',CalibracionCamara)</l>
 <c></c>
 <c>*Create a dictionari for the parameters of the camar</c>
 <l>create_dict(CamParameters)</l>
@@ -35,7 +33,7 @@
 <l>CamParameters.Calibration := CalibracionCamara</l>
 <c></c>
 <c>*read the image for training</c>
-<l>read_image(TrainingImage,'C:/Users/VOServer2/Desktop/Practicas/Screw_detect/bin/x64/Debug/lib/fotos calibracions/foto0.png')</l>
+<l>read_image(TrainingImage,'C:/Users/HOT/Desktop/las practicas/gitHub/ScrewDefinitiu/Screw_detect/bin/x64/Debug/lib/fotos calibracions/foto0.png')</l>
 <c></c>
 <c>*get the Width and the Height of the training image</c>
 <l>get_image_size (TrainingImage, Width, Height)</l>
@@ -45,7 +43,7 @@
 <l>ParamsDict.TrainingImage := TrainingImage</l>
 <l>ParamsDict.CameraParams := CalibracionCamara</l>
 <l>ParamsDict.CameraPose := PoseCamara</l>
-<l>ParamsDict.CaltabPath := 'C:/Users/VOServer2/Desktop/Practicas/Screw_detect/bin/x64/Debug/lib/caltab116mm.descr'</l>
+<l>ParamsDict.CaltabPath := 'C:/Users/HOT/Desktop/las practicas/gitHub/ScrewDefinitiu/Screw_detect/bin/x64/Debug/lib/caltab116mm.descr'</l>
 <c></c>
 <c>*Procedure to find the rectification map</c>
 <l>calibrate_image_reference (ParamsDict, ResultsDict)</l>
@@ -64,10 +62,10 @@
 <c>*open a window to previu de images</c>
 <l>dev_open_window (0, 0, Width/3, Height/3, 'black', WindowHandle)</l>
 <c></c>
-<c>* BackLight_Region(ImageMapped)</c>
+<l>BackLight_Region(ImageMapped)</l>
 <c></c>
 <c>*Read the region from the backlight done with previously</c>
-<l>read_region(ROI_BackLight,'C:/Users/VOServer2/Desktop/Practicas/Screw_detect/bin/x64/Debug/lib/FlexiRegion_16mm.hobj')</l>
+<l>read_region(ROI_BackLight,'C:/Users/HOT/Desktop/las practicas/gitHub/ScrewDefinitiu/Screw_detect/bin/x64/Debug/lib/FlexiRegion_16mm.hobj')</l>
 <c>*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</c>
 <c>                           *screws detection*</c>
 <c>*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</c>
@@ -79,13 +77,13 @@
 <l>* binary_threshold(ImagenBusqueda, RegionThreshold, 'max_separability', 'dark', UsedThreshold)</l>
 <l>threshold(ImagenBusqueda, RegionThreshold, 0,180)</l>
 <c>*Erosion of the imperfections to get only the screws</c>
-<l>opening_circle(RegionThreshold, RegionThresholdLimpia, 2)</l>
+<l>opening_circle(RegionThreshold, RegionThresholdLimpia, 3)</l>
 <c></c>
 <c>*Pic up the screws in different regions</c>
 <l>connection(RegionThresholdLimpia, RegionsCargolsResta)</l>
 <c></c>
 <c>*To make sure that the only thing that we pick is the screws, we make a filter buy area</c>
-<l>select_shape(RegionsCargolsResta, RegionsCargols, 'area', 'and', 400, 15000)</l>
+<l>select_shape(RegionsCargolsResta, RegionsCargols, 'area', 'and', 500, 15000)</l>
 <c></c>
 <c>*To make the measurements are correct, we restore the erosion on the screws</c>
 <l>* dilation_circle(RegionsCargols, RegionCargols, 7)</l>
@@ -120,17 +118,21 @@
 <l>    Width := PositionScrew.Width[Index1]</l>
 <l>    Height := PositionScrew.Height[Index1]</l>
 <l>    PoesRotazioCargol (PoseCompose, PosePesa, Width, Height, PosicioFinal) </l>
-<l>    ResultX[Index1] := PosicioFinal.X</l>
-<l>    ResultY[Index1] := PosicioFinal.Y</l>
-<l>    ResultH[Index1] := PosicioFinal.Height</l>
-<l>    ResultW[Index1] := PosicioFinal.Width</l>
+<c></c>
 <l>endfor</l>
-<l>* close_framegrabber (AcqHandle)</l>
+<c></c>
+<l>    ResultX := PosicioFinal.X[0]</l>
+<l>    ResultY := PosicioFinal.Y[0]</l>
+<l>    ResultH := PosicioFinal.Height[0]</l>
+<l>    ResultW := PosicioFinal.Width[0]</l>
+<l>    ResultRZ := PosicioFinal.RotZ[0]</l>
+<c></c>
+<l>close_framegrabber (AcqHandle)</l>
 </body>
 <docu id="vo_find_screw_main">
 <parameters>
-<parameter id="Image"/>
 <parameter id="ResultH"/>
+<parameter id="ResultRZ"/>
 <parameter id="ResultW"/>
 <parameter id="ResultX"/>
 <parameter id="ResultY"/>
