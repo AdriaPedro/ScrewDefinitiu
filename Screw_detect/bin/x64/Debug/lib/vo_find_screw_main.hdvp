@@ -62,7 +62,7 @@
 <c>*open a window to previu de images</c>
 <l>dev_open_window (0, 0, Width/3, Height/3, 'black', WindowHandle)</l>
 <c></c>
-<l>BackLight_Region(ImageMapped)</l>
+<l>*BackLight_Region(ImageMapped)</l>
 <c></c>
 <c>*Read the region from the backlight done with previously</c>
 <l>read_region(ROI_BackLight,'C:/Users/HOT/Desktop/las practicas/gitHub/ScrewDefinitiu/Screw_detect/bin/x64/Debug/lib/FlexiRegion_16mm.hobj')</l>

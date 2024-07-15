@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.2" halcon_version="24.05.0.0">
+<procedure name="BackLight_Region">
+<interface>
+<io>
+<par name="ImageMapped" base_type="iconic" dimension="0"/>
+</io>
+</interface>
+<body>
+<l>binary_threshold(ImageMapped, Region1, 'smooth_histo', 'light', UsedThreshold1)</l>
+<l>fill_up(Region1,RegionFillUp)</l>
+<l>dev_set_color('spring green')</l>
+<l>erosion_rectangle1(RegionFillUp,ErodedRegion, 100,100)</l>
+<l>dev_set_color('magenta')</l>
+<l>opening_circle(ErodedRegion, RegionClosing, 20)</l>
+<l>dev_set_color('red')</l>
+<l>write_region(RegionClosing, 'FlexiRegion_16mm.hobj')</l>
+<l>return ()</l>
+</body>
+<docu id="BackLight_Region">
+<short lang="en_US">procedimiento para encontrar la region de trabajo de un backlight</short>
+<parameters>
+<parameter id="ImageMapped">
+<description lang="en_US">Es la imagen que se de el backlight.</description>
+<sem_type>image</sem_type>
+</parameter>
+</parameters>
+</docu>
+</procedure>
+</hdevelop>

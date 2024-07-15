@@ -53,7 +53,7 @@ namespace Screw_detect
             try
             {
                 hDevEngine = new HDevEngine();
-                hDevEngine.SetProcedurePath("C:\\Users\\HOT\\Desktop\\las practicas\\gitHub\\ScrewDefinitiu\\Screw_detect\\bin\\x64\\Debug\\lib\\");//carpeta donde se encuentra
+                hDevEngine.SetProcedurePath("C:\\Users\\HOT\\Desktop\\las practicas\\gitHub\\ScrewDefinitiu\\Screw_detect\\bin\\x64\\Debug\\lib");//carpeta donde se encuentra
                 HDevProcedure processingProcedure = new HDevProcedure("vo_find_screw_main");//Nombre del procedimiento
                 processingProcedureCall = new HDevProcedureCall(processingProcedure);
                 
